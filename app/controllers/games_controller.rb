@@ -1,6 +1,8 @@
-require 'open-uri'
-require 'json'
+# frozen_string_literal: true
 
+require 'open-uri'
+
+# GameController
 class GamesController < ApplicationController
   VOWELS = %w(A E I O U Y)
 
@@ -11,23 +13,18 @@ class GamesController < ApplicationController
   end
 
   def score
-    raise
-    # word = params[:word]
-    # if included?(word.upcase, @letters)
-    #   if english_word?(params[:word]
-    #     @result = 'Congratulations! #{word} is a valid English word!'
-    #   else
-    #     @result = 'Sorry but #{word} does not seem to be a valid English word...'
-    #   end
-    # else
-    #   @result = 'Sorry but #{word} cannot be built out of #{@letters.split("-")}'
-    # end
+    @word = (params[:word] || '').upcase
+    @letters = params[:letters]
+    @included = included?(@word, @letters)
+    @english_word = english_word?(@word)
   end
 
   private
 
   def included?(attempt, grid)
-    attempt.chars.all? { |letter| attempt.count(letter) <= grid.count(letter) }
+    attempt.chars.all? do |letter|
+      attempt.count(letter) <= grid.count(letter)
+    end
   end
 
   def english_word?(attempt)
@@ -36,4 +33,3 @@ class GamesController < ApplicationController
     JSON.parse(word_serialized)["found"]
   end
 end
-
