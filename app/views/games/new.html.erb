@@ -1,11 +1,11 @@
 <h1>New game</h1>
 
-<div class="letters">
-  <% @letters.each do |letter| %>
-    <div class="letter-card">
-      <p class="letter"><%= letter %></p>
-    </div>
-  <% end %>
+<div>
+  <ul class="letters">
+    <% @letters.each do |letter| %>
+      <li><%= letter %></li>
+    <% end %>
+  </ul>
 </div>
 
 <div class="answer">
@@ -16,7 +16,7 @@
     <div class="form-group input-group">
       <input type="text" class="form-control" name="word">
       <div class="input-group-append">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <input type="submit" value="Submit" class="btn btn-primary">
       </div>
     </div>
   </form>
