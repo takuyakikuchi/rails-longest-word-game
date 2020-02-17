@@ -17,9 +17,15 @@ class GamesController < ApplicationController
     @letters = params[:letters]
     @included = included?(@word, @letters)
     @english_word = english_word?(@word)
+    @score = add_score_session if @included&&@english_word
   end
 
   private
+
+  def add_score_session
+    session[:score] = 0 if session[:score].nil?
+    session[:score] += @word.length
+  end
 
   def included?(attempt, grid)
     attempt.chars.all? do |letter|
